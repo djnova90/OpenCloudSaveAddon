@@ -1,5 +1,9 @@
 #OpenCloudSaveAddon by djnova90
 
+#ProfileGlossary
+#https://www.pcgamingwiki.com/wiki/Glossary:Game_data
+#userprofile -> $env:USERPROFILE -> C:\Users\(YourUserName)
+
 function WebGetData 
 {
 
