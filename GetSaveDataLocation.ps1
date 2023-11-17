@@ -17,6 +17,7 @@ $SaveGamePathLink="https://www.pcgamingwiki.com/w/api.php?action=parse&format=xm
 #RegEX Filters
 $regexPatternID='PageID="(\d+)"'
 $regexPatternSaveGameLoc='{{Game data\/saves\|Windows\|(.+?\\.+?)}}'
+$regexPatternProfile='{{.+}}'
 
 #Get PageID
 $response=Invoke-RestMethod -Uri $PageIDLink
@@ -33,7 +34,18 @@ $FilterOnSaveGameLoc=[regex]::Match($response2.InnerXml, $regexPatternSaveGameLo
 
 $SaveGamePath=$FilterOnSaveGameLoc.Groups[1].Value
 
+Write-Host $SaveGamePath
 
+#Get local SaveGamePath
+
+$FilterOnProfilePath=[regex]::Match($SaveGamePath,$regexPatternProfile)
+
+$ProfilePath1=$FilterOnProfilePath.Groups[0].Value
+
+if($ProfilePath1 -eq "{{p|userprofile}}")
+{
+    $UserProfilePath=$env:USERPROFILE
+}
 
 
 
