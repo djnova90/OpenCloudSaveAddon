@@ -17,12 +17,12 @@ $SaveGamePathLink="https://www.pcgamingwiki.com/w/api.php?action=parse&format=xm
 #RegEX Filters
 $regexPatternID='PageID="(\d+)"'
 $regexPatternSaveGameLoc='{{Game data\/saves\|Windows\|(.+?\\.+?)}}'
-$regexPatternProfile='{{.+}}'
+$regexPatternProfileAndLocpath=".*?{{(.+)}}(.*)"
 
 #Get PageID
 $response=Invoke-RestMethod -Uri $PageIDLink
 
-$FilterOnPageID=[regex]::Match($response.OuterXML, $regexPatternID)
+$FilterOnPageID=[regex]::Match($response.InnerXml, $regexPatternID)
 
 $PageID=$FilterOnPageID.Groups[1].Value
 
@@ -30,22 +30,31 @@ $PageID=$FilterOnPageID.Groups[1].Value
 
 $response2=Invoke-RestMethod -Uri $SaveGamePathLink
 
-$FilterOnSaveGameLoc=[regex]::Match($response2.InnerXml, $regexPatternSaveGameLoc)
+$WikiFullSaveGameLoc=[regex]::Match($response2.InnerXml, $regexPatternSaveGameLoc)
 
-$SaveGamePath=$FilterOnSaveGameLoc.Groups[1].Value
-
-Write-Host $SaveGamePath
 
 #Get local SaveGamePath
 
-$FilterOnProfilePath=[regex]::Match($SaveGamePath,$regexPatternProfile)
+$FilterOnProfilePath=[regex]::Match($WikiFullSaveGameLoc.Groups[1].Value,$regexPatternProfileAndLocpath)
 
-$ProfilePath1=$FilterOnProfilePath.Groups[0].Value
+$ProfilePath=$FilterOnProfilePath.Groups[1].Value
 
-if($ProfilePath1 -eq "{{p|userprofile}}")
+if($ProfilePath -eq "p|userprofile")
 {
     $UserProfilePath=$env:USERPROFILE
 }
+
+
+$ProfilePath=$FilterOnSaveGameLoc.Groups[1].Value
+$SaveGamePath=$UserProfilePath+$FilterOnProfilePath.Groups[2].Value
+
+Write-Host $UserProfilePath
+Write-Host $ProfilePath
+Write-Host $SaveGamePath
+
+
+
+
 
 
 
