@@ -9,10 +9,27 @@ function WebGetData
 
 }
 
+function GoogleCheck
+{
+
+}
+
+function ReadAndTransformIn
+{
+    
+}
+
+function EnterVerifyGameName
+{
+    $EnteredGameName=Read-Host "Enter Game Name"
+
+}
+
 #URL-PCGamingWiki Links - API - https://www.pcgamingwiki.com/wiki/PCGamingWiki:API
 
-$PageIDLink="https://www.pcgamingwiki.com/w/api.php?action=cargoquery&format=xml&tables=Infobox_game&fields=Infobox_game._pageID%3DPageID&where=Infobox_game._pageName%3D%22Cult%20of%20the%20Lamb%22"
-$SaveGamePathLink="https://www.pcgamingwiki.com/w/api.php?action=parse&format=xml&pageid=$PageID&prop=wikitext&section=4"
+#$PageIDLink="https://www.pcgamingwiki.com/w/api.php?action=cargoquery&format=xml&tables=Infobox_game&fields=Infobox_game._pageID%3DPageID&where=Infobox_game._pageName%3D%22Cult%20of%20the%20Lamb%22"
+$PageIDLink="https://www.pcgamingwiki.com/w/api.php?action=cargoquery&format=xml&tables=Infobox_game&fields=Infobox_game._pageID%3DPageID&where=Infobox_game._pageName%3D%22Cyberpunk%202077%22"
+$SaveGamePathLink="https://www.pcgamingwiki.com/w/api.php?action=parse&format=xml&pageid=$PageID&prop=wikitext"
 
 #RegEX Filters
 $regexPatternID='PageID="(\d+)"'
