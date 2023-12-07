@@ -61,8 +61,6 @@ if($ProfilePath -eq "p|userprofile")
     $UserProfilePath=$env:USERPROFILE
 }
 
-
-$ProfilePath=$FilterOnSaveGameLoc.Groups[1].Value
 $SaveGamePath=$UserProfilePath+$FilterOnProfilePath.Groups[2].Value
 
 Write-Host $UserProfilePath
