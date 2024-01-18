@@ -22,10 +22,13 @@ function ReadAndTransformIn
 function EnterVerifyGameName
 {
     $EnteredGameName=Read-Host "Enter Game Name"
-
+    $modifiedGameName=$EnteredGameName -replace ' ', '%'
+    Write-Host $modifiedGameName
 }
 
-#URL-PCGamingWiki Links - API - https://www.pcgamingwiki.com/wiki/PCGamingWiki:API
+EnterVerifyGameName
+
+<#URL-PCGamingWiki Links - API - https://www.pcgamingwiki.com/wiki/PCGamingWiki:API
 
 #$PageIDLink="https://www.pcgamingwiki.com/w/api.php?action=cargoquery&format=xml&tables=Infobox_game&fields=Infobox_game._pageID%3DPageID&where=Infobox_game._pageName%3D%22Cult%20of%20the%20Lamb%22"
 $PageIDLink="https://www.pcgamingwiki.com/w/api.php?action=cargoquery&format=xml&tables=Infobox_game&fields=Infobox_game._pageID%3DPageID&where=Infobox_game._pageName%3D%22Cyberpunk%202077%22"
@@ -66,7 +69,7 @@ $SaveGamePath=$UserProfilePath+$FilterOnProfilePath.Groups[2].Value
 Write-Host $UserProfilePath
 Write-Host $ProfilePath
 Write-Host $SaveGamePath
-
+#>
 
 
 
